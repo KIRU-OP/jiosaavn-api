@@ -16,7 +16,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "node .output/server/index.mjs",
-    "deploy": "NITRO_PRESET=cloudflare_module vite build && wrangler deploy",
     "format": "prettier --write \"./**/*.{js,ts,json}\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
