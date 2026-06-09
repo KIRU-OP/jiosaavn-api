@@ -45,9 +45,9 @@ export const SearchAPIResponseModel = z.object({
         more_info: z.object({
           album: z.string(),
           ctr: z.number(),
-          score: z.string().optional(),
+          score: z.string().nullish(),
           vcode: z.string(),
-          vlink: z.string().optional(),
+          vlink: z.string().nullish(),
           primary_artists: z.string(),
           singers: z.string(),
           video_available: z.boolean().nullable(),
@@ -112,15 +112,15 @@ export const SearchAPIResponseModel = z.object({
       z.object({
         id: z.string(),
         title: z.string(),
-        subtitle: z.string().optional(),
+        subtitle: z.string().nullish(),
         type: z.string(),
         image: z.string(),
-        perma_url: z.string().optional(),
+        perma_url: z.string().nullish(),
         more_info: z
           .object({
             album: z.string(),
             ctr: z.number(),
-            score: z.string().optional(),
+            score: z.string().nullish(),
             vcode: z.string(),
             vlink: z.string(),
             primary_artists: z.string(),
@@ -129,8 +129,8 @@ export const SearchAPIResponseModel = z.object({
             triller_available: z.boolean(),
             language: z.string()
           })
-          .optional(),
-        explicit_content: z.string().optional(),
+          .nullish(),
+        explicit_content: z.string().nullish(),
         mini_obj: z.boolean(),
         description: z.string()
       })

@@ -12,12 +12,12 @@ import {
 export const FeedItemAPIResponseModel = z.object({
   id: z.string(),
   title: z.string(),
-  subtitle: z.string().optional(),
+  subtitle: z.string().nullish(),
   type: z.string(),
   image: z.string(),
   perma_url: z.string(),
-  explicit_content: z.string().optional(),
-  count: z.number().optional(),
+  explicit_content: z.string().nullish(),
+  count: z.number().nullish(),
   more_info: z
     .object({
       year: z.string(),
@@ -31,24 +31,24 @@ export const FeedItemAPIResponseModel = z.object({
       singers: z.string()
     })
     .partial()
-    .optional()
+    .nullish()
 })
 
 export const FeedListAPIResponseModel = z.array(FeedItemAPIResponseModel)
 
 export const LaunchDataAPIResponseModel = z.object({
-  new_trending: z.array(FeedItemAPIResponseModel).optional(),
-  new_albums: z.array(FeedItemAPIResponseModel).optional(),
-  top_playlists: z.array(FeedItemAPIResponseModel).optional(),
-  charts: z.array(FeedItemAPIResponseModel).optional(),
-  radio: z.array(FeedItemAPIResponseModel).optional(),
-  artist_recos: z.array(FeedItemAPIResponseModel).optional()
+  new_trending: z.array(FeedItemAPIResponseModel).nullish(),
+  new_albums: z.array(FeedItemAPIResponseModel).nullish(),
+  top_playlists: z.array(FeedItemAPIResponseModel).nullish(),
+  charts: z.array(FeedItemAPIResponseModel).nullish(),
+  radio: z.array(FeedItemAPIResponseModel).nullish(),
+  artist_recos: z.array(FeedItemAPIResponseModel).nullish()
 })
 
 export const FeaturedPlaylistsAPIResponseModel = z.object({
   data: z.array(FeedItemAPIResponseModel),
-  count: z.number().optional(),
-  last_page: z.boolean().optional()
+  count: z.number().nullish(),
+  last_page: z.boolean().nullish()
 })
 
 // ---------------- Public (home feed) ----------------

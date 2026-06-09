@@ -1,43 +1,47 @@
 import { z } from 'zod'
 import { DownloadLinkModel } from '#common/models'
+import { ArtistMapGroupModel, RawArtistMapGroupModel } from '#modules/artists/models/artist-map.model'
 import { RawSongModel, SongModel } from '#modules/songs/models'
 
 export const RawAlbumModel = z.object({
   id: z.string(),
   title: z.string(),
-  subtitle: z.string(),
-  header_desc: z.string(),
+  subtitle: z.string().nullish(),
+  header_desc: z.string().nullish(),
   type: z.string(),
   perma_url: z.string(),
-  image: z.string(),
+  image: z.string().nullish(),
   language: z.string(),
-  year: z.string(),
-  play_count: z.string(),
-  explicit_content: z.string(),
-  list_count: z.string(),
-  list_type: z.string(),
-  list: z.array(RawSongModel),
-  more_info: z.object({
-    artistMap: RawSongModel.shape.more_info.shape.artistMap,
-    song_count: z.string(),
-    copyright_text: z.string(),
-    is_dolby_content: z.boolean(),
-    label_url: z.string()
-  })
+  year: z.string().nullish(),
+  play_count: z.string().nullish(),
+  explicit_content: z.string().nullish(),
+  list_count: z.string().nullish(),
+  list_type: z.string().nullish(),
+  list: z.union([z.array(RawSongModel), z.string()]).nullish(),
+  more_info: z
+    .object({
+      artistMap: RawArtistMapGroupModel.nullish(),
+      song_count: z.string().nullish(),
+      copyright_text: z.string().nullish(),
+      is_dolby_content: z.boolean().nullish(),
+      label_url: z.string().nullish()
+    })
+    .nullish()
 })
 
 export const AlbumModel = z.object({
   id: z.string(),
   name: z.string(),
-  description: z.string(),
+  description: z.string().nullable(),
   year: z.number().nullable(),
   type: z.string(),
   playCount: z.number().nullable(),
   language: z.string(),
   explicitContent: z.boolean(),
-  artists: z.object(SongModel.shape.artists.shape),
+  artists: ArtistMapGroupModel,
   songCount: z.number().nullable(),
   url: z.string(),
+  copyright: z.string().nullable(),
   image: z.array(DownloadLinkModel),
-  songs: z.array(SongModel).nullable()
+  songs: z.array(SongModel)
 })

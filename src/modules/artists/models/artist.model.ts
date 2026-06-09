@@ -3,124 +3,60 @@ import { DownloadLinkModel } from '#common/models'
 import { AlbumModel, RawAlbumModel } from '#modules/albums/album.model'
 import { RawSongModel, SongModel } from '#modules/songs/models'
 
-export const RawArtistModel = z
-  .object({
-    artistId: z.string(),
-    name: z.string(),
-    subtitle: z.string(),
-    image: z.string(),
-    follower_count: z.string(),
-    type: z.string(),
-    isVerified: z.boolean(),
-    dominantLanguage: z.string(),
-    dominantType: z.string(),
-    topSongs: z.array(RawSongModel),
-    topAlbums: z.array(RawAlbumModel),
-    singles: z.array(RawSongModel),
-    dedicated_artist_playlist: z.array(
+export const RawArtistModel = z.object({
+  artistId: z.string().nullish(),
+  id: z.string().nullish(),
+  name: z.string(),
+  perma_url: z.string().nullish(),
+  image: z.string().nullish(),
+  follower_count: z.string().nullish(),
+  type: z.string(),
+  isVerified: z.boolean().nullish(),
+  dominantLanguage: z.string().nullish(),
+  dominantType: z.string().nullish(),
+  topSongs: z.array(RawSongModel).nullish(),
+  topAlbums: z.array(RawAlbumModel).nullish(),
+  singles: z.array(RawSongModel).nullish(),
+  latest_release: z
+    .array(
       z.object({
         id: z.string(),
         title: z.string(),
-        subtitle: z.string(),
         type: z.string(),
-        image: z.string(),
         perma_url: z.string(),
-        more_info: z.object({
-          uid: z.string(),
-          firstname: z.string(),
-          artist_name: z.array(z.string()),
-          entity_type: z.string(),
-          entity_sub_type: z.string(),
-          video_available: z.boolean(),
-          is_dolby_content: z.any(),
-          sub_types: z.any(),
-          images: z.any(),
-          lastname: z.string(),
-          song_count: z.string(),
-          language: z.string()
-        }),
-        explicit_content: z.string(),
-        mini_obj: z.boolean(),
-        numsongs: z.number()
+        image: z.string().nullish()
       })
-    ),
-    featured_artist_playlist: z.array(
+    )
+    .nullish(),
+  similarArtists: z
+    .array(
       z.object({
         id: z.string(),
-        title: z.string(),
-        subtitle: z.string(),
-        type: z.string(),
-        image: z.string(),
-        perma_url: z.string(),
-        more_info: z.object({
-          uid: z.string(),
-          firstname: z.string(),
-          artist_name: z.any(),
-          entity_type: z.string(),
-          entity_sub_type: z.string(),
-          video_available: z.boolean(),
-          is_dolby_content: z.any(),
-          sub_types: z.any(),
-          images: z.any(),
-          lastname: z.string(),
-          song_count: z.string(),
-          language: z.string()
-        }),
-        explicit_content: z.string(),
-        mini_obj: z.boolean(),
-        numsongs: z.number()
-      })
-    ),
-    similarArtists: z.array(
-      z.object({
-        _id: z.string(),
-        similar: z.string(),
-        languages: z.string(),
-        isVerified: z.string(),
-        image_url: z.string(),
-        wiki: z.string(),
-        roles: z.string(),
-        combine_artist_pages: z.number(),
-        webp: z.boolean(),
-        search_keywords: z.string(),
-        replace_with_primary_artists: z.number(),
-        twitter: z.string(),
-        dob: z.string(),
-        aka: z.string(),
         name: z.string(),
-        primary_artist_id: z.string(),
-        id: z.string(),
-        fb: z.string(),
-        bio: z.string(),
         perma_url: z.string(),
-        type: z.string(),
-        mini_obj: z.boolean(),
-        isRadioPresent: z.boolean(),
-        dominantType: z.string()
+        image_url: z.string().nullish(),
+        type: z.string()
       })
-    ),
-    isRadioPresent: z.boolean(),
-    bio: z.string(),
-    dob: z.string(),
-    fb: z.string(),
-    twitter: z.string(),
-    wiki: z.string(),
-    urls: z.object({
-      albums: z.string(),
-      bio: z.string(),
-      comments: z.string(),
-      songs: z.string(),
-      overview: z.string()
-    }),
-    availableLanguages: z.array(z.string()),
-    fan_count: z.string(),
-    topEpisodes: z.array(z.any()),
-    is_followed: z.boolean()
-  })
-  .extend({
-    id: z.string(),
-    perma_url: z.string()
-  })
+    )
+    .nullish(),
+  isRadioPresent: z.boolean().nullish(),
+  bio: z.string().nullish(),
+  dob: z.string().nullish(),
+  fb: z.string().nullish(),
+  twitter: z.string().nullish(),
+  wiki: z.string().nullish(),
+  urls: z
+    .object({
+      albums: z.string().nullish(),
+      bio: z.string().nullish(),
+      comments: z.string().nullish(),
+      songs: z.string().nullish(),
+      overview: z.string().nullish()
+    })
+    .nullish(),
+  availableLanguages: z.array(z.string()).nullish(),
+  fan_count: z.string().nullish()
+})
 
 export const ArtistModel = z.object({
   id: z.string(),
@@ -129,7 +65,7 @@ export const ArtistModel = z.object({
   type: z.string(),
   image: z.array(DownloadLinkModel),
   followerCount: z.number().nullable(),
-  fanCount: z.string().nullable(),
+  fanCount: z.number().nullable(),
   isVerified: z.boolean().nullable(),
   dominantLanguage: z.string().nullable(),
   dominantType: z.string().nullable(),
@@ -148,35 +84,25 @@ export const ArtistModel = z.object({
   wiki: z.string().nullable(),
   availableLanguages: z.array(z.string()),
   isRadioPresent: z.boolean().nullable(),
-  topSongs: z.array(SongModel).nullable(),
-  topAlbums: z.array(AlbumModel).nullable(),
-  singles: z.array(SongModel).nullable(),
-  similarArtists: z
-    .array(
-      z.object({
-        id: z.string(),
-        name: z.string(),
-        url: z.string(),
-        image: z.array(DownloadLinkModel),
-        languages: z.record(z.string(), z.string()).nullable(),
-        wiki: z.string(),
-        dob: z.string(),
-        fb: z.string(),
-        twitter: z.string(),
-        isRadioPresent: z.boolean(),
-        type: z.string(),
-        dominantType: z.string(),
-        aka: z.string(),
-        bio: z.string().nullable(),
-        similarArtists: z
-          .array(
-            z.object({
-              id: z.string(),
-              name: z.string()
-            })
-          )
-          .nullable()
-      })
-    )
-    .nullable()
+  topSongs: z.array(SongModel),
+  topAlbums: z.array(AlbumModel),
+  singles: z.array(SongModel),
+  latestRelease: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      type: z.string(),
+      url: z.string(),
+      image: z.array(DownloadLinkModel)
+    })
+  ),
+  similarArtists: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      url: z.string(),
+      image: z.array(DownloadLinkModel),
+      type: z.string()
+    })
+  )
 })
