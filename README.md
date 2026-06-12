@@ -1,7 +1,7 @@
 # JioSaavn API
 
-![GitHub License](https://img.shields.io/github/license/sumitkolhe/jiosaavn-api)
-![GitHub Release](https://img.shields.io/github/v/release/sumitkolhe/jiosaavn-api)
+![GitHub License](https://img.shields.io/github/license/KIRU-OP/jiosaavn-api)
+![GitHub Release](https://img.shields.io/github/v/release/KIRU-OP/jiosaavn-api)
 
 An Unofficial API for downloading high-quality songs, albums, playlists, and more from [JioSaavn](https://jiosaavn.com).
 
@@ -53,11 +53,11 @@ JioSaavn API can be deployed to either Cloudflare Workers or Vercel. Below are t
 
 ### Cloudflare Workers
 
-[![Deploy with Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/sumitkolhe/jiosaavn-api)
+[![Deploy with Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/KIRU-OP/jiosaavn-api)
 
 ### Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sumitkolhe/jiosaavn-api)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/KIRU-OP/jiosaavn-api)
 
 ## 📜 License
 
