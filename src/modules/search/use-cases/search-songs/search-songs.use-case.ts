@@ -12,8 +12,6 @@ export interface SearchSongsArgs {
 }
 
 export class SearchSongsUseCase implements IUseCase<SearchSongsArgs, z.infer<typeof SearchSongModel>> {
-  constructor() {}
-
   async execute({ query, limit, page }: SearchSongsArgs): Promise<z.infer<typeof SearchSongModel>> {
     const { data } = await useFetch<z.infer<typeof SearchSongAPIResponseModel>>({
       endpoint: Endpoints.search.songs,
@@ -24,10 +22,14 @@ export class SearchSongsUseCase implements IUseCase<SearchSongsArgs, z.infer<typ
       }
     })
 
+    if (!data) {
+      return { total: 0, start: 0, results: [] }
+    }
+
     return {
-      total: data.total,
-      start: data.start,
-      results: data.results?.map(createSongPayload).slice(0, limit) || []
+      total: data.total ?? 0,
+      start: data.start ?? 0,
+      results: (data.results ?? []).map(createSongPayload).slice(0, limit)
     }
   }
 }
