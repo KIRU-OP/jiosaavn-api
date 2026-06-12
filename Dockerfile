@@ -1,32 +1,35 @@
-FROM oven/bun AS base
+# Base stage
+FROM oven/bun:1 AS base
 
 WORKDIR /user/app
 
-COPY package.json .
+COPY package.json ./
+COPY bun.lockb ./
 
-COPY bun.lockb .
+# Install production dependencies
+RUN bun install --production
 
-RUN bun install --frozen-lockfile --production
-
-# Making build file
+# Build stage
 FROM base AS build
 
 WORKDIR /user/app
 
 COPY . .
 
-RUN bun install --frozen-lockfile
+# Install all dependencies needed for build
+RUN bun install
 
+# Build project
 RUN bun run build
 
-# Production
+# Production stage
 FROM oven/bun:alpine AS production
 
 WORKDIR /user/app
 
 COPY --from=build /user/app/dist ./dist
-COPY --from=base /user/app/node_modules ./node_modules
-COPY --from=base /user/app/package.json ./package.json
+COPY --from=build /user/app/node_modules ./node_modules
+COPY --from=build /user/app/package.json ./package.json
 
 EXPOSE 3000
 
